@@ -14,7 +14,7 @@ class WeatherRemoteDataImpl implements WeatherRemoteData {
   @override
   Future<WeatherModel> getWeatherByCityName(String cityName) async {
     final respApi = await dio.get('$weatherBaseUrl$cityName&appid=$weatherApiKey');
-    return WeatherModel.fromJson(respApi);
+    return WeatherModel.fromJson(respApi.data);
   }
   
   @override
