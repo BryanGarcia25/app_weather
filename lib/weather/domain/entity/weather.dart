@@ -2,17 +2,17 @@ class Weather {
   final String cityName;
   final String main;
   final String description;
-  final double temp;
-  final double feelsLike;
-  final double tempMax;
-  final double tempMin;
-  final double humidity;
+  final int temp;
+  final int feelsLike;
+  final int tempMax;
+  final int tempMin;
+  final int humidity;
   final int visibility;
   final double windSpeed;
   final double? rain;
-  final double cloudPorcentage;
-  final double sunrise;
-  final double sunset;
+  final int cloudPorcentage;
+  final int sunrise;
+  final int sunset;
 
   Weather({required this.cityName, required this.main, required this.description, required this.temp, required this.feelsLike, required this.tempMax, required this.tempMin, required this.humidity, required this.visibility, required this.windSpeed, required this.rain, required this.cloudPorcentage, required this.sunrise, required this.sunset});
 }
