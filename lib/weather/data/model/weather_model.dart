@@ -2,11 +2,12 @@ import 'package:app_weather/weather/domain/entity/weather.dart';
 
 class WeatherModel extends Weather {
 
-  WeatherModel({required super.cityName, required super.main, required super.description, required super.temp, required super.feelsLike, required super.tempMax, required super.tempMin, required super.humidity, required super.visibility, required super.windSpeed, required super.rain, required super.cloudPorcentage, required super.sunrise, required super.sunset});
+  WeatherModel({required super.cityName, required super.icon, required super.main, required super.description, required super.temp, required super.feelsLike, required super.tempMax, required super.tempMin, required super.humidity, required super.visibility, required super.windSpeed, required super.rain, required super.cloudPorcentage, required super.sunrise, required super.sunset});
 
   factory WeatherModel.fromJson(json) {
     return WeatherModel(
       cityName : json['name'],
+      icon: json['weather'][0]['icon'],
       main : json['weather'][0]['main'],
       description : json['weather'][0]['description'],
       temp : double.parse((json['main']['temp'] - 273.15).toString()).toInt(),
