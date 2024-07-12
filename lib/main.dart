@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => GetIt.instance.get<RemoteWeatherBloc>())
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
