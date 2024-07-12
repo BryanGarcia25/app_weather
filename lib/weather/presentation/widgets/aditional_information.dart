@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 
 class AditionalInformation extends StatelessWidget {
   const AditionalInformation({
-    super.key, required this.icon, required this.feacture, required this.weatherInformation,
+    super.key, required this.icon, required this.feacture, required this.weatherInformation, required this.orientation,
   });
 
   final IconData icon;
   final String feacture;
   final String weatherInformation;
+  final String orientation;
 
   @override
   Widget build(BuildContext context) {
@@ -16,8 +17,8 @@ class AditionalInformation extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30),
       child: Container(
-        height: 60,
-        width: MediaQuery.of(context).size.width,
+        height: orientation == "landscape" ? 90 : 60,
+        width: orientation == "landscape" ? MediaQuery.of(context).size.width * 0.42 : MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
           border: Border.all(
             color: Colors.transparent
@@ -27,7 +28,20 @@ class AditionalInformation extends StatelessWidget {
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: Row(
+          child: orientation == "landscape" ? Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(feacture.toUpperCase(), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: date.hour < 6 || date.hour > 20 ? Colors.white : Colors.black)),
+                  Text(weatherInformation, style: TextStyle(fontSize: 20, color: date.hour < 6 || date.hour > 20 ? Colors.white : Colors.black))
+                ],
+              ),
+              Icon(icon, size: 86, color: date.hour < 6 || date.hour > 20 ? Colors.white : Colors.black),
+            ],
+          ) : Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(

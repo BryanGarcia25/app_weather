@@ -12,12 +12,13 @@ class WeatherScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String sunset = "";
+    DateTime date = DateTime.now();
+    Orientation orientation = MediaQuery.orientationOf(context);
 
     return Scaffold(
       extendBodyBehindAppBar: true,
       // backgroundColor: const Color(0xFF131416),
-      backgroundColor: backgroundColor(sunset),
+      backgroundColor: backgroundColor(),
       body: BlocBuilder<RemoteWeatherBloc, RemoteWeatherState>(
         builder: (context, state) {
           switch (state) {
@@ -25,12 +26,36 @@ class WeatherScreen extends StatelessWidget {
               return const Center(child: CircularProgressIndicator());
             case GetWeatherInitial():
               return Center(
-                child: Column(
+                child: orientation.name == "landscape" ? Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Image.asset('lib/assets/storm.png', height: 250),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("App".toUpperCase(), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 48, color: date.hour < 6 || date.hour > 20 ? Colors.white : Colors.black)),
+                        Text("Weather".toUpperCase(), style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 48, color: Color(0xFF42dde6))),
+                        const SizedBox(height: 20),
+                        TextButton(
+                          onPressed: () => BlocProvider.of<RemoteWeatherBloc>(context).add(OnGetWeather()),
+                          style: TextButton.styleFrom(
+                            backgroundColor: const Color(0xFF42dde6),
+                            padding: const EdgeInsets.symmetric(horizontal: 70, vertical: 5),
+                            shape: BeveledRectangleBorder(
+                              borderRadius: BorderRadius.circular(5)
+                            )
+                          ),
+                          child: const Text("Comenzar", style: TextStyle(color: Colors.black, fontSize: 26)),
+                        ),
+                      ],
+                    )
+                  ],
+                ) : Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image.asset('lib/assets/storm.png', height: 300),
                     const SizedBox(height: 20),
-                    Text("App".toUpperCase(), style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 48, color: Colors.black)),
+                    Text("App".toUpperCase(), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 48, color: date.hour < 6 || date.hour > 20 ? Colors.white : Colors.black)),
                     Text("Weather".toUpperCase(), style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 48, color: Color(0xFF42dde6))),
                     const SizedBox(height: 20),
                     TextButton(
@@ -49,15 +74,29 @@ class WeatherScreen extends StatelessWidget {
               );
             case GetWeatherSuccess():
               return Center(
-                child: Column(
+                child: orientation.name == "landscape" ? Row(
                   children: [
-                    CurrentWeather(weather: state.weather),
+                    CurrentWeather(weather: state.weather, orientation: orientation.name),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        AditionalInformation(icon: Icons.cloud, feacture: "Nubes", weatherInformation: "${state.weather.cloudPorcentage}%", orientation: orientation.name),
+                        const SizedBox(height: 10),
+                        AditionalInformation(icon: Icons.sunny, feacture: "Salida del Sol", weatherInformation: "${DateTime.fromMillisecondsSinceEpoch(state.weather.sunrise * 1000).hour < 10 ? "0${DateTime.fromMillisecondsSinceEpoch(state.weather.sunrise * 1000).hour}" : "${DateTime.fromMillisecondsSinceEpoch(state.weather.sunrise * 1000).hour}"}:${DateTime.fromMillisecondsSinceEpoch(state.weather.sunrise * 1000).minute < 10 ? "0${DateTime.fromMillisecondsSinceEpoch(state.weather.sunrise * 1000).minute}" : "${DateTime.fromMillisecondsSinceEpoch(state.weather.sunrise * 1000).minute}"}:${DateTime.fromMillisecondsSinceEpoch(state.weather.sunrise * 1000).second < 10 ? "0${DateTime.fromMillisecondsSinceEpoch(state.weather.sunrise * 1000).second}" : "${DateTime.fromMillisecondsSinceEpoch(state.weather.sunrise * 1000).second}"}", orientation: orientation.name),
+                        const SizedBox(height: 10),
+                        AditionalInformation(icon: Icons.nightlight, feacture: "Puesta del Sol", weatherInformation: "${DateTime.fromMillisecondsSinceEpoch(state.weather.sunset * 1000).hour}:${DateTime.fromMillisecondsSinceEpoch(state.weather.sunset * 1000).minute}:${DateTime.fromMillisecondsSinceEpoch(state.weather.sunset * 1000).second < 10 ? "0${DateTime.fromMillisecondsSinceEpoch(state.weather.sunset * 1000).second}" : "${DateTime.fromMillisecondsSinceEpoch(state.weather.sunset * 1000).second}"}", orientation: orientation.name),
+                      ],
+                    )
+                  ],
+                ) : Column(
+                  children: [
+                    CurrentWeather(weather: state.weather, orientation: orientation.name),
                     const SizedBox(height: 20),
-                    AditionalInformation(icon: Icons.cloud, feacture: "Nubes", weatherInformation: "${state.weather.cloudPorcentage}%"),
+                    AditionalInformation(icon: Icons.cloud, feacture: "Nubes", weatherInformation: "${state.weather.cloudPorcentage}%", orientation: orientation.name),
                     const SizedBox(height: 10),
-                    AditionalInformation(icon: Icons.sunny, feacture: "Salida del Sol", weatherInformation: "${DateTime.fromMillisecondsSinceEpoch(state.weather.sunrise * 1000).hour < 10 ? "0${DateTime.fromMillisecondsSinceEpoch(state.weather.sunrise * 1000).hour}" : "${DateTime.fromMillisecondsSinceEpoch(state.weather.sunrise * 1000).hour}"}:${DateTime.fromMillisecondsSinceEpoch(state.weather.sunrise * 1000).minute < 10 ? "0${DateTime.fromMillisecondsSinceEpoch(state.weather.sunrise * 1000).minute}" : "${DateTime.fromMillisecondsSinceEpoch(state.weather.sunrise * 1000).minute}"}:${DateTime.fromMillisecondsSinceEpoch(state.weather.sunrise * 1000).second < 10 ? "0${DateTime.fromMillisecondsSinceEpoch(state.weather.sunrise * 1000).second}" : "${DateTime.fromMillisecondsSinceEpoch(state.weather.sunrise * 1000).second}"}"),
+                    AditionalInformation(icon: Icons.sunny, feacture: "Salida del Sol", weatherInformation: "${DateTime.fromMillisecondsSinceEpoch(state.weather.sunrise * 1000).hour < 10 ? "0${DateTime.fromMillisecondsSinceEpoch(state.weather.sunrise * 1000).hour}" : "${DateTime.fromMillisecondsSinceEpoch(state.weather.sunrise * 1000).hour}"}:${DateTime.fromMillisecondsSinceEpoch(state.weather.sunrise * 1000).minute < 10 ? "0${DateTime.fromMillisecondsSinceEpoch(state.weather.sunrise * 1000).minute}" : "${DateTime.fromMillisecondsSinceEpoch(state.weather.sunrise * 1000).minute}"}:${DateTime.fromMillisecondsSinceEpoch(state.weather.sunrise * 1000).second < 10 ? "0${DateTime.fromMillisecondsSinceEpoch(state.weather.sunrise * 1000).second}" : "${DateTime.fromMillisecondsSinceEpoch(state.weather.sunrise * 1000).second}"}", orientation: orientation.name),
                     const SizedBox(height: 10),
-                    AditionalInformation(icon: Icons.nightlight, feacture: "Puesta del Sol", weatherInformation: "${DateTime.fromMillisecondsSinceEpoch(state.weather.sunset * 1000).hour}:${DateTime.fromMillisecondsSinceEpoch(state.weather.sunset * 1000).minute}:${DateTime.fromMillisecondsSinceEpoch(state.weather.sunset * 1000).second < 10 ? "0${DateTime.fromMillisecondsSinceEpoch(state.weather.sunset * 1000).second}" : "${DateTime.fromMillisecondsSinceEpoch(state.weather.sunset * 1000).second}"}"),
+                    AditionalInformation(icon: Icons.nightlight, feacture: "Puesta del Sol", weatherInformation: "${DateTime.fromMillisecondsSinceEpoch(state.weather.sunset * 1000).hour}:${DateTime.fromMillisecondsSinceEpoch(state.weather.sunset * 1000).minute}:${DateTime.fromMillisecondsSinceEpoch(state.weather.sunset * 1000).second < 10 ? "0${DateTime.fromMillisecondsSinceEpoch(state.weather.sunset * 1000).second}" : "${DateTime.fromMillisecondsSinceEpoch(state.weather.sunset * 1000).second}"}", orientation: orientation.name),
                   ],
                 ),
               );
