@@ -16,6 +16,21 @@ class WeatherScreen extends StatelessWidget {
     Orientation orientation = MediaQuery.orientationOf(context);
 
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: Builder(
+          builder: (context) {
+            return IconButton(
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+              icon: const Icon(Icons.menu, size: 40, color: Colors.white),
+            );
+          }
+        ),
+        leadingWidth: 40,
+      ),
       extendBodyBehindAppBar: true,
       // backgroundColor: const Color(0xFF131416),
       backgroundColor: backgroundColor(),
@@ -104,6 +119,61 @@ class WeatherScreen extends StatelessWidget {
               return const Text("Error al momento de consumir la API");
           }
         },
+      ),
+      drawer: Drawer(
+        backgroundColor: const Color(0xFF42dde6),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 25),
+          child: ListView(
+            children: [
+              ListTile(
+                title: const Row(
+                  children: [
+                    SizedBox(
+                      height: 40,
+                      child: Icon(Icons.location_city)
+                    ),
+                    SizedBox(width: 20),
+                    Text("Clima Actual", style: TextStyle(color: Colors.white)), 
+                  ],
+                ),
+                onTap: () {
+                  
+                },
+              ),
+              ListTile(
+                title: const Row(
+                  children: [
+                    SizedBox(
+                      height: 40,
+                      child: Icon(Icons.access_time_filled)
+                    ),
+                    SizedBox(width: 20),
+                    Text("Clima en los próximos días", style: TextStyle(color: Colors.white)), 
+                  ],
+                ),
+                onTap: () {
+                  
+                },
+              ),
+              ListTile(
+                title: const Row(
+                  children: [
+                    SizedBox(
+                      height: 40,
+                      child: Icon(Icons.search)
+                    ),
+                    SizedBox(width: 20),
+                    Text("Buscar ciudad", style: TextStyle(color: Colors.white)),
+                  ],
+                ),
+                onTap: () {
+                  
+                },
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
