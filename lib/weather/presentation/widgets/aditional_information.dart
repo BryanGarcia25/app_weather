@@ -48,10 +48,10 @@ class AditionalInformation extends StatelessWidget {
                 children: [
                   Icon(icon, size: 32, color: date.hour < 6 || date.hour > 20 ? Colors.white : Colors.black),
                   const SizedBox(width: 15,),
-                  Text(feacture.toUpperCase(), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: date.hour < 6 || date.hour > 20 ? Colors.white : Colors.black),),
+                  Text(feacture.toUpperCase(), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: date.hour < 6 || date.hour > 20 ? Colors.white : Colors.black),),
                 ],
               ),
-              Text(weatherInformation, style: TextStyle(fontSize: 20, color: date.hour < 6 || date.hour > 20 ? Colors.white : Colors.black))
+              Text(weatherInformation, style: TextStyle(fontSize: 18, color: date.hour < 6 || date.hour > 20 ? Colors.white : Colors.black))
             ],
           ),
         )
