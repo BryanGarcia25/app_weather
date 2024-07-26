@@ -1,11 +1,11 @@
 import 'package:app_weather/core/constants/constants.dart';
 import 'package:app_weather/weather/data/model/weather_model.dart';
-import 'package:app_weather/weather/domain/entity/weather.dart';
 import 'package:dio/dio.dart';
 
 abstract class WeatherRemoteData {
   Future<WeatherModel> getWeatherByCityName(String cityName);
-  Future<Weather> getWeatherByCoordinates(double latitude, double longitude);
+  Future<WeatherModel> getWeatherByCoordinates(double latitude, double longitude);
+  Future<WeatherModel> getWeatherForecastByCoordinates(double latitude, double longitude);
 }
 
 class WeatherRemoteDataImpl implements WeatherRemoteData {
@@ -18,9 +18,15 @@ class WeatherRemoteDataImpl implements WeatherRemoteData {
   }
   
   @override
-  Future<Weather> getWeatherByCoordinates(double latitude, double longitude) async {
+  Future<WeatherModel> getWeatherByCoordinates(double latitude, double longitude) async {
     final respApi = await dio.get('${weatherBaseUrl}lat=$latitude&lon=$longitude&appid=$weatherApiKey');
     return WeatherModel.fromJson(respApi.data);
+  }
+  
+  @override
+  Future<WeatherModel> getWeatherForecastByCoordinates(double latitude, double longitude) async {
+    final respWeatherForecastApi = await dio.get('${weatherForecastBaseUrl}lat=$latitude&lon=$longitude&appid=$weatherApiKey');
+    return WeatherModel.fromJson(respWeatherForecastApi.data);
   }
   
 }

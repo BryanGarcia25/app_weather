@@ -2,6 +2,7 @@ import 'package:app_weather/config/theme/scaffold_background.dart';
 import 'package:app_weather/weather/presentation/BLoC/remote_weather_bloc.dart';
 import 'package:app_weather/weather/presentation/BLoC/remote_weather_event.dart';
 import 'package:app_weather/weather/presentation/BLoC/remote_weather_state.dart';
+import 'package:app_weather/weather/presentation/pages/weather_forecast_screen.dart';
 import 'package:app_weather/weather/presentation/widgets/aditional_information.dart';
 import 'package:app_weather/weather/presentation/widgets/current_weather.dart';
 import 'package:flutter/material.dart';
@@ -131,10 +132,10 @@ class WeatherScreen extends StatelessWidget {
                   children: [
                     SizedBox(
                       height: 40,
-                      child: Icon(Icons.location_city)
+                      child: Icon(Icons.location_city, size: 32,)
                     ),
                     SizedBox(width: 20),
-                    Text("Clima Actual", style: TextStyle(color: Colors.white)), 
+                    Text("Clima actual", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)), 
                   ],
                 ),
                 onTap: () {
@@ -146,14 +147,14 @@ class WeatherScreen extends StatelessWidget {
                   children: [
                     SizedBox(
                       height: 40,
-                      child: Icon(Icons.access_time_filled)
+                      child: Icon(Icons.access_time_filled, size: 32,)
                     ),
                     SizedBox(width: 20),
-                    Text("Clima en los próximos días", style: TextStyle(color: Colors.white)), 
+                    Text("Pronostico del clima", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)), 
                   ],
                 ),
                 onTap: () {
-                  
+                  Navigator.of(context).push(MaterialPageRoute(builder: (_) => const WeatherForecastScreen()));
                 },
               ),
               ListTile(
@@ -161,10 +162,10 @@ class WeatherScreen extends StatelessWidget {
                   children: [
                     SizedBox(
                       height: 40,
-                      child: Icon(Icons.search)
+                      child: Icon(Icons.search, size: 32,)
                     ),
                     SizedBox(width: 20),
-                    Text("Buscar ciudad", style: TextStyle(color: Colors.white)),
+                    Text("Buscar ciudad", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
                   ],
                 ),
                 onTap: () {

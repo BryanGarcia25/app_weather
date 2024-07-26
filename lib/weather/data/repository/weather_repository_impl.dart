@@ -28,4 +28,14 @@ class WeatherRepositoryImpl extends WeatherRepository {
     }
   }
   
+  @override
+  Future<Either<Failure, Weather>> getWeatherForecastByCoordinates(double latitude, double longitude) async {
+    try {
+      final Weather resp = await weatherRemoteData.getWeatherForecastByCoordinates(latitude, longitude);
+      return Right(resp);
+    } on ServerFailure {
+      return Left(ServerFailure());
+    }
+  }
+  
 }
