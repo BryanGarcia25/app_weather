@@ -19,8 +19,8 @@ class WeatherRemoteDataImpl implements WeatherRemoteData {
   
   @override
   Future<Weather> getWeatherByCoordinates(double latitude, double longitude) async {
-    final respApi = await dio.get('${weatherCoordinatesBaseUrl}lat=$latitude&lon=$longitude&appid=$weatherApiKey');
-    return WeatherModel.fromJson(respApi);
+    final respApi = await dio.get('${weatherBaseUrl}lat=$latitude&lon=$longitude&appid=$weatherApiKey');
+    return WeatherModel.fromJson(respApi.data);
   }
   
 }
