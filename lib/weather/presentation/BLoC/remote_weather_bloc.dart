@@ -27,7 +27,7 @@ class RemoteWeatherBloc extends Bloc<RemoteWeatherEvent, RemoteWeatherState> {
       Position position = await getCurrentPosition.getPositions();
 
       final respApiForecast = await _getWeatherForecastByCoordinatesUseCase(position.latitude, position.longitude);
-      respApiForecast.fold((f) => GetWeatherFailed(failure: f), (w) => emit(GetWeatherSuccess(weather: w)));
+      respApiForecast.fold((f) => GetWeatherFailed(failure: f), (w) => emit(GetWeatherForecastSuccess(weatherForecast: w)));
 
     });
   }
