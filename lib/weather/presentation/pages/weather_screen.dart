@@ -2,14 +2,26 @@ import 'package:app_weather/config/theme/scaffold_background.dart';
 import 'package:app_weather/weather/presentation/BLoC/remote_weather_bloc.dart';
 import 'package:app_weather/weather/presentation/BLoC/remote_weather_event.dart';
 import 'package:app_weather/weather/presentation/BLoC/remote_weather_state.dart';
-import 'package:app_weather/weather/presentation/pages/weather_forecast_screen.dart';
 import 'package:app_weather/weather/presentation/widgets/aditional_information.dart';
 import 'package:app_weather/weather/presentation/widgets/current_weather.dart';
+import 'package:app_weather/weather/presentation/widgets/drawer_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class WeatherScreen extends StatelessWidget {
+class WeatherScreen extends StatefulWidget {
   const WeatherScreen({super.key});
+
+  @override
+  State<WeatherScreen> createState() => _WeatherScreen();
+}
+
+class _WeatherScreen extends State<WeatherScreen> {
+
+  @override
+  void initState() {
+    BlocProvider.of<RemoteWeatherBloc>(context).add(OnGetWeather());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -116,66 +128,14 @@ class WeatherScreen extends StatelessWidget {
                   ],
                 ),
               );
+            case GetWeatherForecastSuccess():
+              return Container();
             case GetWeatherFailed():
               return const Text("Error al momento de consumir la API");
           }
         },
       ),
-      drawer: Drawer(
-        backgroundColor: const Color(0xFF42dde6),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 25),
-          child: ListView(
-            children: [
-              ListTile(
-                title: const Row(
-                  children: [
-                    SizedBox(
-                      height: 40,
-                      child: Icon(Icons.location_city, size: 32,)
-                    ),
-                    SizedBox(width: 20),
-                    Text("Clima actual", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)), 
-                  ],
-                ),
-                onTap: () {
-                  
-                },
-              ),
-              ListTile(
-                title: const Row(
-                  children: [
-                    SizedBox(
-                      height: 40,
-                      child: Icon(Icons.access_time_filled, size: 32,)
-                    ),
-                    SizedBox(width: 20),
-                    Text("Pronostico del clima", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)), 
-                  ],
-                ),
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(builder: (_) => const WeatherForecastScreen()));
-                },
-              ),
-              ListTile(
-                title: const Row(
-                  children: [
-                    SizedBox(
-                      height: 40,
-                      child: Icon(Icons.search, size: 32,)
-                    ),
-                    SizedBox(width: 20),
-                    Text("Buscar ciudad", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
-                  ],
-                ),
-                onTap: () {
-                  
-                },
-              ),
-            ],
-          ),
-        ),
-      ),
+      drawer: const DrawerMenu(),
     );
   }
 }
