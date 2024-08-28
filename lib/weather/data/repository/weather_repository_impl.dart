@@ -1,6 +1,7 @@
 import 'package:app_weather/core/error/failure.dart';
 import 'package:app_weather/weather/data/data_sources/weather_remote_data.dart';
 import 'package:app_weather/weather/domain/entity/weather.dart';
+import 'package:app_weather/weather/domain/entity/weather_forecast.dart';
 import 'package:app_weather/weather/domain/repositoy/weather_repository.dart';
 import 'package:dartz/dartz.dart';
 
@@ -29,9 +30,9 @@ class WeatherRepositoryImpl extends WeatherRepository {
   }
   
   @override
-  Future<Either<Failure, Weather>> getWeatherForecastByCoordinates(double latitude, double longitude) async {
+  Future<Either<Failure, WeatherForecast>> getWeatherForecastByCoordinates(double latitude, double longitude) async {
     try {
-      final Weather resp = await weatherRemoteData.getWeatherForecastByCoordinates(latitude, longitude);
+      final WeatherForecast resp = await weatherRemoteData.getWeatherForecastByCoordinates(latitude, longitude);
       return Right(resp);
     } on ServerFailure {
       return Left(ServerFailure());
