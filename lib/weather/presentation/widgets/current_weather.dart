@@ -61,9 +61,9 @@ class CurrentWeather extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  DetailWeatherInformation(icon: Icons.device_thermostat_sharp, feacture: "Sensación", weatherInformation: "${weather.feelsLike}°C"),
-                  DetailWeatherInformation(icon: Icons.water_drop, feacture: "Humedad", weatherInformation: "${weather.humidity}%"),
-                  DetailWeatherInformation(icon: Icons.air, feacture: "Viento", weatherInformation: "${weather.windSpeed} km/h"),
+                  DetailWeatherInformation(period: weather.icon, icon: Icons.device_thermostat_sharp, feacture: "Sensación", weatherInformation: "${weather.feelsLike}°C"),
+                  DetailWeatherInformation(period: weather.icon, icon: Icons.water_drop, feacture: "Humedad", weatherInformation: "${weather.humidity}%"),
+                  DetailWeatherInformation(period: weather.icon, icon: Icons.air, feacture: "Viento", weatherInformation: "${weather.windSpeed} km/h"),
                 ],
               ),
             ),
@@ -94,9 +94,9 @@ class CurrentWeather extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  DetailWeatherInformation(icon: Icons.device_thermostat_sharp, feacture: "Sensación", weatherInformation: "${weather.feelsLike}°C"),
-                  DetailWeatherInformation(icon: Icons.water_drop, feacture: "Humedad", weatherInformation: "${weather.humidity}%"),
-                  DetailWeatherInformation(icon: Icons.air, feacture: "Viento", weatherInformation: "${weather.windSpeed} km/h"),
+                  DetailWeatherInformation(period: weather.icon, icon: Icons.device_thermostat_sharp, feacture: "Sensación", weatherInformation: "${weather.feelsLike}°C"),
+                  DetailWeatherInformation(period: weather.icon, icon: Icons.water_drop, feacture: "Humedad", weatherInformation: "${weather.humidity}%"),
+                  DetailWeatherInformation(period: weather.icon, icon: Icons.air, feacture: "Viento", weatherInformation: "${weather.windSpeed} km/h"),
                 ],
               ),
             ),

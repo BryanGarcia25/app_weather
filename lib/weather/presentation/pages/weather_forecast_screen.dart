@@ -1,4 +1,5 @@
 import 'package:app_weather/config/icons/icons_weather.dart';
+import 'package:app_weather/config/theme/linear_gradient_card.dart';
 import 'package:app_weather/config/theme/scaffold_background.dart';
 import 'package:app_weather/weather/presentation/BLoC/remote_weather_bloc.dart';
 import 'package:app_weather/weather/presentation/BLoC/remote_weather_event.dart';
@@ -61,39 +62,45 @@ class _WeatherForecastScreenState extends State<WeatherForecastScreen> {
                     itemCount: state.weatherForecast.forecast.length,
                     itemBuilder: (context, index) {
                       return Card(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                          child: Column(
-                            children: [
-                              Text("Clima para el día ${state.weatherForecast.forecast[index]['dt_txt'].toString().split(' ')[0]} a las ${state.weatherForecast.forecast[index]['dt_txt'].toString().split(' ')[1]}"),
-                              const SizedBox(height: 10),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  SizedBox(
-                                    width: 70,
-                                    child: Text("${(state.weatherForecast.forecast[index]['main']['temp'] - 273.15).toString().split('.')[0]}°C", style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24))
-                                  ),
-                                  SizedBox(
-                                    width: 90,
-                                    child: DetailWeatherInformation(icon: Icons.water_drop, feacture: "Humedad", weatherInformation: "${state.weatherForecast.forecast[index]['main']['humidity']}%")
-                                  ),
-                                  SizedBox(
-                                    width: 90,
-                                    child: DetailWeatherInformation(icon: Icons.air, feacture: "Viento", weatherInformation: "${state.weatherForecast.forecast[index]['wind']['speed']}km/h")
-                                  ),
-                                  SizedBox(
-                                    width: 80,
-                                    child: Column(
-                                      children: [
-                                        showIconsWeather(state.weatherForecast.forecast[index]['weather'][0]['icon'], 60),
-                                        Text("${state.weatherForecast.forecast[index]['weather'][0]['description']}", textAlign: TextAlign.center,)
-                                      ],
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            gradient: linearGradientCard(state.weatherForecast.forecast[index]['weather'][0]['icon'])
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                            child: Column(
+                              children: [
+                                Text("Clima para el día ${state.weatherForecast.forecast[index]['dt_txt'].toString().split(' ')[0]} a las ${state.weatherForecast.forecast[index]['dt_txt'].toString().split(' ')[1]}", style: TextStyle(color: state.weatherForecast.forecast[index]['weather'][0]['icon'].toString().contains('n') ? Colors.white : Colors.black)),
+                                const SizedBox(height: 10),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    SizedBox(
+                                      width: 70,
+                                      child: Text("${(state.weatherForecast.forecast[index]['main']['temp'] - 273.15).toString().split('.')[0]}°C", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24, color: state.weatherForecast.forecast[index]['weather'][0]['icon'].toString().contains('n') ? Colors.white : Colors.black))
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ],
+                                    SizedBox(
+                                      width: 90,
+                                      child: DetailWeatherInformation(period: state.weatherForecast.forecast[index]['weather'][0]['icon'], icon: Icons.water_drop, feacture: "Humedad", weatherInformation: "${state.weatherForecast.forecast[index]['main']['humidity']}%")
+                                    ),
+                                    SizedBox(
+                                      width: 90,
+                                      child: DetailWeatherInformation(period: state.weatherForecast.forecast[index]['weather'][0]['icon'], icon: Icons.air, feacture: "Viento", weatherInformation: "${state.weatherForecast.forecast[index]['wind']['speed']}km/h")
+                                    ),
+                                    SizedBox(
+                                      width: 80,
+                                      child: Column(
+                                        children: [
+                                          showIconsWeather(state.weatherForecast.forecast[index]['weather'][0]['icon'], 60),
+                                          Text("${state.weatherForecast.forecast[index]['weather'][0]['description']}", textAlign: TextAlign.center, style: TextStyle(color: state.weatherForecast.forecast[index]['weather'][0]['icon'].toString().contains('n') ? Colors.white : Colors.black))
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       );
