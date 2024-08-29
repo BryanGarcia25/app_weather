@@ -8,6 +8,7 @@ import 'package:app_weather/weather/presentation/widgets/detail_weather_informat
 import 'package:app_weather/weather/presentation/widgets/drawer_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
 class WeatherForecastScreen extends StatefulWidget {
   const WeatherForecastScreen({super.key});
@@ -71,7 +72,7 @@ class _WeatherForecastScreenState extends State<WeatherForecastScreen> {
                             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                             child: Column(
                               children: [
-                                Text("Clima para el día ${state.weatherForecast.forecast[index]['dt_txt'].toString().split(' ')[0]} a las ${state.weatherForecast.forecast[index]['dt_txt'].toString().split(' ')[1]}", style: TextStyle(color: state.weatherForecast.forecast[index]['weather'][0]['icon'].toString().contains('n') ? Colors.white : Colors.black)),
+                                Text("Clima para el día ${DateFormat('dd/MM/yyyy').format(DateTime.parse(state.weatherForecast.forecast[index]['dt_txt']).subtract(const Duration(hours: 6)))} a las ${DateTime.parse(state.weatherForecast.forecast[index]['dt_txt']).subtract(const Duration(hours: 6)).toString().split(' ')[1].split('.')[0]}", style: TextStyle(color: state.weatherForecast.forecast[index]['weather'][0]['icon'].toString().contains('n') ? Colors.white : Colors.black)),
                                 const SizedBox(height: 10),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
