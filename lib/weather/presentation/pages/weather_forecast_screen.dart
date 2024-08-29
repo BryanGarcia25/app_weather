@@ -1,6 +1,8 @@
 import 'package:app_weather/config/icons/icons_weather.dart';
 import 'package:app_weather/config/theme/linear_gradient_card.dart';
 import 'package:app_weather/config/theme/scaffold_background.dart';
+import 'package:app_weather/core/utils/colors.dart';
+import 'package:app_weather/core/utils/convert_date.dart';
 import 'package:app_weather/weather/presentation/BLoC/remote_weather_bloc.dart';
 import 'package:app_weather/weather/presentation/BLoC/remote_weather_event.dart';
 import 'package:app_weather/weather/presentation/BLoC/remote_weather_state.dart';
@@ -8,7 +10,6 @@ import 'package:app_weather/weather/presentation/widgets/detail_weather_informat
 import 'package:app_weather/weather/presentation/widgets/drawer_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 
 class WeatherForecastScreen extends StatefulWidget {
   const WeatherForecastScreen({super.key});
@@ -72,7 +73,7 @@ class _WeatherForecastScreenState extends State<WeatherForecastScreen> {
                             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                             child: Column(
                               children: [
-                                Text("Clima para el día ${DateFormat('dd/MM/yyyy').format(DateTime.parse(state.weatherForecast.forecast[index]['dt_txt']).subtract(const Duration(hours: 6)))} a las ${DateTime.parse(state.weatherForecast.forecast[index]['dt_txt']).subtract(const Duration(hours: 6)).toString().split(' ')[1].split('.')[0]}", style: TextStyle(color: state.weatherForecast.forecast[index]['weather'][0]['icon'].toString().contains('n') ? Colors.white : Colors.black)),
+                                Text("Clima para el día ${getDate(state.weatherForecast.forecast[index]['dt_txt'])} a las ${getHour(state.weatherForecast.forecast[index]['dt_txt'])}", style: TextStyle(color: getColorByDayPeriod(state.weatherForecast.forecast[index]['weather'][0]['icon'].toString()))),
                                 const SizedBox(height: 10),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -94,7 +95,7 @@ class _WeatherForecastScreenState extends State<WeatherForecastScreen> {
                                       child: Column(
                                         children: [
                                           showIconsWeather(state.weatherForecast.forecast[index]['weather'][0]['icon'], 60),
-                                          Text("${state.weatherForecast.forecast[index]['weather'][0]['description']}", textAlign: TextAlign.center, style: TextStyle(color: state.weatherForecast.forecast[index]['weather'][0]['icon'].toString().contains('n') ? Colors.white : Colors.black))
+                                          Text("${state.weatherForecast.forecast[index]['weather'][0]['description']}", textAlign: TextAlign.center, style: TextStyle(color: getColorByDayPeriod(state.weatherForecast.forecast[index]['weather'][0]['icon'].toString())))
                                         ],
                                       ),
                                     ),
@@ -105,7 +106,6 @@ class _WeatherForecastScreenState extends State<WeatherForecastScreen> {
                           ),
                         ),
                       );
-                      // return Text(state.weatherForecast.forecast[index]['weather'][0]['icon']);
                     },
                   ),
                 ),
