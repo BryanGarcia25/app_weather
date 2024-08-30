@@ -1,4 +1,5 @@
 import 'package:app_weather/config/theme/scaffold_background.dart';
+import 'package:app_weather/core/utils/convert_unix_to_date.dart';
 import 'package:app_weather/weather/presentation/BLoC/remote_weather_bloc.dart';
 import 'package:app_weather/weather/presentation/BLoC/remote_weather_event.dart';
 import 'package:app_weather/weather/presentation/BLoC/remote_weather_state.dart';
@@ -110,9 +111,9 @@ class _WeatherScreen extends State<WeatherScreen> {
                       children: [
                         AditionalInformation(icon: Icons.cloud, feacture: "Nubes", weatherInformation: "${state.weather.cloudPorcentage}%", orientation: orientation.name),
                         const SizedBox(height: 10),
-                        AditionalInformation(icon: Icons.sunny, feacture: "Salida del Sol", weatherInformation: "${DateTime.fromMillisecondsSinceEpoch(state.weather.sunrise * 1000).hour < 10 ? "0${DateTime.fromMillisecondsSinceEpoch(state.weather.sunrise * 1000).hour}" : "${DateTime.fromMillisecondsSinceEpoch(state.weather.sunrise * 1000).hour}"}:${DateTime.fromMillisecondsSinceEpoch(state.weather.sunrise * 1000).minute < 10 ? "0${DateTime.fromMillisecondsSinceEpoch(state.weather.sunrise * 1000).minute}" : "${DateTime.fromMillisecondsSinceEpoch(state.weather.sunrise * 1000).minute}"}:${DateTime.fromMillisecondsSinceEpoch(state.weather.sunrise * 1000).second < 10 ? "0${DateTime.fromMillisecondsSinceEpoch(state.weather.sunrise * 1000).second}" : "${DateTime.fromMillisecondsSinceEpoch(state.weather.sunrise * 1000).second}"}", orientation: orientation.name),
+                        AditionalInformation(icon: Icons.sunny, feacture: "Salida del sol", weatherInformation: convertUnitTimeToDate(state.weather.sunrise * 1000), orientation: orientation.name),
                         const SizedBox(height: 10),
-                        AditionalInformation(icon: Icons.nightlight, feacture: "Puesta del Sol", weatherInformation: "${DateTime.fromMillisecondsSinceEpoch(state.weather.sunset * 1000).hour}:${DateTime.fromMillisecondsSinceEpoch(state.weather.sunset * 1000).minute}:${DateTime.fromMillisecondsSinceEpoch(state.weather.sunset * 1000).second < 10 ? "0${DateTime.fromMillisecondsSinceEpoch(state.weather.sunset * 1000).second}" : "${DateTime.fromMillisecondsSinceEpoch(state.weather.sunset * 1000).second}"}", orientation: orientation.name),
+                        AditionalInformation(icon: Icons.nightlight, feacture: "Puesta del sol", weatherInformation: convertUnitTimeToDate(state.weather.sunset * 1000), orientation: orientation.name),
                       ],
                     )
                   ],
@@ -122,9 +123,9 @@ class _WeatherScreen extends State<WeatherScreen> {
                     const SizedBox(height: 20),
                     AditionalInformation(icon: Icons.cloud, feacture: "Nubes", weatherInformation: "${state.weather.cloudPorcentage}%", orientation: orientation.name),
                     const SizedBox(height: 10),
-                    AditionalInformation(icon: Icons.sunny, feacture: "Salida del Sol", weatherInformation: "${DateTime.fromMillisecondsSinceEpoch(state.weather.sunrise * 1000).hour < 10 ? "0${DateTime.fromMillisecondsSinceEpoch(state.weather.sunrise * 1000).hour}" : "${DateTime.fromMillisecondsSinceEpoch(state.weather.sunrise * 1000).hour}"}:${DateTime.fromMillisecondsSinceEpoch(state.weather.sunrise * 1000).minute < 10 ? "0${DateTime.fromMillisecondsSinceEpoch(state.weather.sunrise * 1000).minute}" : "${DateTime.fromMillisecondsSinceEpoch(state.weather.sunrise * 1000).minute}"}:${DateTime.fromMillisecondsSinceEpoch(state.weather.sunrise * 1000).second < 10 ? "0${DateTime.fromMillisecondsSinceEpoch(state.weather.sunrise * 1000).second}" : "${DateTime.fromMillisecondsSinceEpoch(state.weather.sunrise * 1000).second}"}", orientation: orientation.name),
+                    AditionalInformation(icon: Icons.sunny, feacture: "Salida del sol", weatherInformation: convertUnitTimeToDate(state.weather.sunrise * 1000), orientation: orientation.name),
                     const SizedBox(height: 10),
-                    AditionalInformation(icon: Icons.nightlight, feacture: "Puesta del Sol", weatherInformation: "${DateTime.fromMillisecondsSinceEpoch(state.weather.sunset * 1000).hour}:${DateTime.fromMillisecondsSinceEpoch(state.weather.sunset * 1000).minute}:${DateTime.fromMillisecondsSinceEpoch(state.weather.sunset * 1000).second < 10 ? "0${DateTime.fromMillisecondsSinceEpoch(state.weather.sunset * 1000).second}" : "${DateTime.fromMillisecondsSinceEpoch(state.weather.sunset * 1000).second}"}", orientation: orientation.name),
+                    AditionalInformation(icon: Icons.nightlight, feacture: "Puesta del sol", weatherInformation: convertUnitTimeToDate(state.weather.sunset * 1000), orientation: orientation.name),
                   ],
                 ),
               );
