@@ -10,7 +10,7 @@ import 'package:get_it/get_it.dart';
 final getItInstance = GetIt.instance;
 
 Future<void> initializeDependencies() async {
-  getItInstance.registerFactory(() => RemoteWeatherBloc(getItInstance(), getItInstance()));
+  getItInstance.registerFactory(() => RemoteWeatherBloc(getItInstance(), getItInstance(), getItInstance()));
 
   getItInstance.registerLazySingleton(() => GetWeatherByCityNameUseCase(weatherRepository: getItInstance()));
   getItInstance.registerLazySingleton(() => GetWeatherByCoordinatesUseCase(weatherRepository: getItInstance()));

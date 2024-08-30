@@ -9,3 +9,7 @@ class OnGetWeather extends RemoteWeatherEvent {
 class OnGetWeatherForecast extends RemoteWeatherEvent {
   
 }
+
+class OnGetWeatherForecastByCity extends RemoteWeatherEvent {
+  
+}
