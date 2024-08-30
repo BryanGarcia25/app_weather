@@ -1,3 +1,4 @@
+import 'package:app_weather/weather/presentation/pages/weather_by_city.dart';
 import 'package:app_weather/weather/presentation/pages/weather_forecast_screen.dart';
 import 'package:app_weather/weather/presentation/pages/weather_screen.dart';
 import 'package:flutter/material.dart';
@@ -58,7 +59,7 @@ class DrawerMenu extends StatelessWidget {
                 ],
               ),
               onTap: () {
-                
+                Navigator.of(context).push(MaterialPageRoute(builder: (_) => const WeatherByCity()));
               },
             ),
           ],

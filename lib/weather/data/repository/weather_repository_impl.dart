@@ -10,9 +10,9 @@ class WeatherRepositoryImpl extends WeatherRepository {
   WeatherRepositoryImpl({required this.weatherRemoteData});
 
   @override
-  Future<Either<Failure, Weather>> getWeatherByCityName(String cityName) async {
+  Future<Either<Failure, WeatherForecast>> getWeatherByCityName(String cityName) async {
     try {
-      final Weather resp = await weatherRemoteData.getWeatherByCityName(cityName);
+      final WeatherForecast resp = await weatherRemoteData.getWeatherByCityName(cityName);
       return Right(resp);
     } on ServerFailure {
       return Left(ServerFailure());

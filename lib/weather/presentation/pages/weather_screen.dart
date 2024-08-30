@@ -27,7 +27,6 @@ class _WeatherScreen extends State<WeatherScreen> {
 
   @override
   Widget build(BuildContext context) {
-    DateTime date = DateTime.now();
     Orientation orientation = MediaQuery.orientationOf(context);
 
     return Scaffold(
