@@ -1,5 +1,6 @@
 import 'package:app_weather/config/icons/icons_weather.dart';
 import 'package:app_weather/config/theme/linear_gradient_background.dart';
+import 'package:app_weather/core/utils/colors.dart';
 import 'package:app_weather/weather/domain/entity/weather.dart';
 import 'package:app_weather/weather/presentation/widgets/detail_weather_information.dart';
 import 'package:flutter/material.dart';
@@ -28,8 +29,8 @@ class CurrentWeather extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const SizedBox(height: 15),
-          Text("${date.day}/${date.month}/${date.year}", style: TextStyle(fontSize: 20, color: date.hour < 6 || date.hour > 20 ? Colors.white : Colors.black)),
-          Text(weather.cityName, style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: date.hour < 6 || date.hour > 20 ? Colors.white : Colors.black)),
+          Text("${date.day}/${date.month}/${date.year}", style: TextStyle(fontSize: 20, color: getColorByDayOrNight())),
+          Text(weather.cityName, style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: getColorByDayOrNight())),
           const SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -39,8 +40,8 @@ class CurrentWeather extends StatelessWidget {
                 showIconsWeather(weather.icon, 120),
                 Column(
                   children: [
-                    Text("${weather.temp}°C", style: TextStyle(fontSize: 48, fontWeight: FontWeight.bold, color: date.hour < 6 || date.hour > 20 ? Colors.white : Colors.black)),
-                    Text(weather.description.toUpperCase(), style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: date.hour < 6 || date.hour > 20 ? Colors.white : Colors.black)),
+                    Text("${weather.temp}°C", style: TextStyle(fontSize: 48, fontWeight: FontWeight.bold, color: getColorByDayOrNight())),
+                    Text(weather.description.toUpperCase(), style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: getColorByDayOrNight())),
                   ],
                 ),
               ],
@@ -72,13 +73,13 @@ class CurrentWeather extends StatelessWidget {
       ) : Column(
         children: [
           const SizedBox(height: 30),
-          Text("${date.day}/${date.month}/${date.year}", style: TextStyle(fontSize: 16, color: date.hour < 6 || date.hour > 20 ? Colors.white : Colors.black)),
-          Text(weather.cityName, style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: date.hour < 6 || date.hour > 20 ? Colors.white : Colors.black)),
+          Text("${date.day}/${date.month}/${date.year}", style: TextStyle(fontSize: 16, color: getColorByDayOrNight())),
+          Text(weather.cityName, style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: getColorByDayOrNight())),
           const SizedBox(height: 10),
           showIconsWeather(weather.icon, 175),
           const SizedBox(height: 10),
-          Text("${weather.temp}°C", style: TextStyle(fontSize: 56, fontWeight: FontWeight.bold, color: date.hour < 6 || date.hour > 20 ? Colors.white : Colors.black)),
-          Text(weather.description.toUpperCase(), style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: date.hour < 6 || date.hour > 20 ? Colors.white : Colors.black)),
+          Text("${weather.temp}°C", style: TextStyle(fontSize: 56, fontWeight: FontWeight.bold, color: getColorByDayOrNight())),
+          Text(weather.description.toUpperCase(), style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: getColorByDayOrNight())),
           const SizedBox(height: 10),
           Container(
             width: MediaQuery.of(context).size.width * 0.75,

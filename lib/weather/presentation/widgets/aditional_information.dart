@@ -1,3 +1,4 @@
+import 'package:app_weather/core/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 class AditionalInformation extends StatelessWidget {
@@ -35,23 +36,23 @@ class AditionalInformation extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(feacture.toUpperCase(), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: date.hour < 6 || date.hour > 20 ? Colors.white : Colors.black)),
-                  Text(weatherInformation, style: TextStyle(fontSize: 20, color: date.hour < 6 || date.hour > 20 ? Colors.white : Colors.black))
+                  Text(feacture.toUpperCase(), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: getColorByDayOrNight())),
+                  Text(weatherInformation, style: TextStyle(fontSize: 20, color: getColorByDayOrNight()))
                 ],
               ),
-              Icon(icon, size: 86, color: date.hour < 6 || date.hour > 20 ? Colors.white : Colors.black),
+              Icon(icon, size: 86, color: getColorByDayOrNight()),
             ],
           ) : Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
                 children: [
-                  Icon(icon, size: 32, color: date.hour < 6 || date.hour > 20 ? Colors.white : Colors.black),
+                  Icon(icon, size: 32, color: getColorByDayOrNight()),
                   const SizedBox(width: 15,),
-                  Text(feacture.toUpperCase(), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: date.hour < 6 || date.hour > 20 ? Colors.white : Colors.black),),
+                  Text(feacture.toUpperCase(), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: getColorByDayOrNight()),),
                 ],
               ),
-              Text(weatherInformation, style: TextStyle(fontSize: 18, color: date.hour < 6 || date.hour > 20 ? Colors.white : Colors.black))
+              Text(weatherInformation, style: TextStyle(fontSize: 18, color: getColorByDayOrNight()))
             ],
           ),
         )

@@ -1,4 +1,5 @@
 import 'package:app_weather/config/theme/scaffold_background.dart';
+import 'package:app_weather/core/utils/colors.dart';
 import 'package:app_weather/core/utils/convert_unix_to_date.dart';
 import 'package:app_weather/weather/presentation/BLoC/remote_weather_bloc.dart';
 import 'package:app_weather/weather/presentation/BLoC/remote_weather_event.dart';
@@ -62,7 +63,7 @@ class _WeatherScreen extends State<WeatherScreen> {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("App".toUpperCase(), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 48, color: date.hour < 6 || date.hour > 20 ? Colors.white : Colors.black)),
+                        Text("App".toUpperCase(), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 48, color: getColorByDayOrNight())),
                         Text("Weather".toUpperCase(), style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 48, color: Color(0xFF42dde6))),
                         const SizedBox(height: 20),
                         TextButton(
@@ -84,7 +85,7 @@ class _WeatherScreen extends State<WeatherScreen> {
                   children: [
                     Image.asset('lib/assets/storm.png', height: 300),
                     const SizedBox(height: 20),
-                    Text("App".toUpperCase(), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 48, color: date.hour < 6 || date.hour > 20 ? Colors.white : Colors.black)),
+                    Text("App".toUpperCase(), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 48, color: getColorByDayOrNight())),
                     Text("Weather".toUpperCase(), style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 48, color: Color(0xFF42dde6))),
                     const SizedBox(height: 20),
                     TextButton(
