@@ -13,3 +13,5 @@ class OnGetWeatherForecast extends RemoteWeatherEvent {
 class OnGetWeatherForecastByCity extends RemoteWeatherEvent {
   
 }
+
+class ResetWeatherState extends RemoteWeatherEvent {}

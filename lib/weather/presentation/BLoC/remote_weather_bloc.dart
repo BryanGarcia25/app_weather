@@ -13,6 +13,10 @@ class RemoteWeatherBloc extends Bloc<RemoteWeatherEvent, RemoteWeatherState> {
   final GetWeatherByCityNameUseCase _getWeatherByCityNameUseCase;
 
   RemoteWeatherBloc(this._getWeatherByCoordinatesUseCase, this._getWeatherForecastByCoordinatesUseCase, this._getWeatherByCityNameUseCase) : super(GetWeatherInitial()) {
+    on<ResetWeatherState>((event, emit) {
+      emit(GetWeatherInitial()); 
+    });
+
     on<OnGetWeather>((event, emit) async {
       emit(GetWeatherLoading());
 
