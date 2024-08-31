@@ -5,7 +5,6 @@ import 'package:app_weather/weather/presentation/BLoC/remote_weather_bloc.dart';
 import 'package:app_weather/weather/presentation/BLoC/remote_weather_event.dart';
 import 'package:app_weather/weather/presentation/BLoC/remote_weather_state.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class WeatherByCity extends StatefulWidget {
@@ -24,6 +23,8 @@ class _WeatherByCityState extends State<WeatherByCity> {
     super.initState();
   }
 
+  final controllerCity = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,9 +42,10 @@ class _WeatherByCityState extends State<WeatherByCity> {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          const Flexible(
+                          Flexible(
                             child: TextField(
-                              decoration: InputDecoration(
+                              controller: controllerCity,
+                              decoration: const InputDecoration(
                                 hintText: "Ciudad",
                                 border: OutlineInputBorder(
                                   borderSide: BorderSide(
@@ -54,7 +56,7 @@ class _WeatherByCityState extends State<WeatherByCity> {
                             ),
                           ),
                           TextButton(
-                            onPressed: () => BlocProvider.of<RemoteWeatherBloc>(context).add(OnGetWeatherForecastByCity()),
+                            onPressed: () => BlocProvider.of<RemoteWeatherBloc>(context).add(OnGetWeatherForecastByCity(city: controllerCity.text)),
                             style: TextButton.styleFrom(
                               backgroundColor: const Color(0xFF42dde6),
                               shape: BeveledRectangleBorder(
@@ -81,9 +83,10 @@ class _WeatherByCityState extends State<WeatherByCity> {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          const Flexible(
+                          Flexible(
                             child: TextField(
-                              decoration: InputDecoration(
+                              controller: controllerCity,
+                              decoration: const InputDecoration(
                                 hintText: "Ciudad",
                                 border: OutlineInputBorder(
                                   borderSide: BorderSide(
@@ -94,7 +97,7 @@ class _WeatherByCityState extends State<WeatherByCity> {
                             ),
                           ),
                           TextButton(
-                            onPressed: () => BlocProvider.of<RemoteWeatherBloc>(context).add(OnGetWeatherForecastByCity()),
+                            onPressed: () => BlocProvider.of<RemoteWeatherBloc>(context).add(OnGetWeatherForecastByCity(city: controllerCity.text)),
                             style: TextButton.styleFrom(
                               backgroundColor: const Color(0xFF42dde6),
                               shape: BeveledRectangleBorder(
