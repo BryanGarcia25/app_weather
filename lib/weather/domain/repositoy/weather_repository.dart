@@ -6,5 +6,6 @@ import 'package:dartz/dartz.dart';
 abstract class WeatherRepository {
   Future<Either<Failure, Weather>> getWeatherByCoordinates(double latitude, double longitude);
   Future<Either<Failure, WeatherForecast>> getWeatherForecastByCoordinates(double latitude, double longitude);
-  Future<Either<Failure, WeatherForecast>> getWeatherByCityName(String cityName);
+  Future<Either<Failure, Weather>> getWeatherByCityName(String cityName);
+  Future<Either<Failure, WeatherForecast>> getWeatherForecastByCityName(String cityName);
 }

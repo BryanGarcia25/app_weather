@@ -1,6 +1,7 @@
 import 'package:app_weather/core/resources/get_position.dart';
 import 'package:app_weather/weather/domain/use_cases/get_weather_by_city.dart';
 import 'package:app_weather/weather/domain/use_cases/get_weather_by_coordinates.dart';
+import 'package:app_weather/weather/domain/use_cases/get_weather_forecast_by_city.dart';
 import 'package:app_weather/weather/domain/use_cases/get_weather_forecast_by_coordinates.dart';
 import 'package:app_weather/weather/presentation/BLoC/remote_weather_event.dart';
 import 'package:app_weather/weather/presentation/BLoC/remote_weather_state.dart';
@@ -11,8 +12,9 @@ class RemoteWeatherBloc extends Bloc<RemoteWeatherEvent, RemoteWeatherState> {
   final GetWeatherByCoordinatesUseCase _getWeatherByCoordinatesUseCase;
   final GetWeatherForecastByCoordinatesUseCase _getWeatherForecastByCoordinatesUseCase;
   final GetWeatherByCityNameUseCase _getWeatherByCityNameUseCase;
+  final GetWeatherForecastByCityNameUseCase _getWeatherForecastByCityNameUseCase;
 
-  RemoteWeatherBloc(this._getWeatherByCoordinatesUseCase, this._getWeatherForecastByCoordinatesUseCase, this._getWeatherByCityNameUseCase) : super(GetWeatherInitial()) {
+  RemoteWeatherBloc(this._getWeatherByCoordinatesUseCase, this._getWeatherForecastByCoordinatesUseCase, this._getWeatherByCityNameUseCase, this._getWeatherForecastByCityNameUseCase) : super(GetWeatherInitial()) {
     on<ResetWeatherState>((event, emit) {
       emit(GetWeatherInitial()); 
     });
@@ -36,10 +38,13 @@ class RemoteWeatherBloc extends Bloc<RemoteWeatherEvent, RemoteWeatherState> {
       respApiForecast.fold((f) => GetWeatherFailed(failure: f), (w) => emit(GetWeatherForecastSuccess(weatherForecast: w)));
 
     });
-    on<OnGetWeatherForecastByCity>((event, emit) async {
+    on<OnGetWeatherByCity>((event, emit) async {
       emit(GetWeatherLoading());
       final respApiForecast = await _getWeatherByCityNameUseCase(event.city);
-      respApiForecast.fold((f) => GetWeatherFailed(failure: f), (w) => emit(GetWeatherForecastSuccess(weatherForecast: w)));
+      respApiForecast.fold((f) => GetWeatherFailed(failure: f), (w) => emit(GetWeatherSuccess(weather: w)));
+
+      final responseWeatherForecast = await _getWeatherForecastByCityNameUseCase(event.city);
+      responseWeatherForecast.fold((f) => GetWeatherFailed(failure: f), (w) => emit(GetWeatherForecastSuccess(weatherForecast: w)));
 
     });
   }

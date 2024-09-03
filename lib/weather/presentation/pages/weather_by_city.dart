@@ -1,5 +1,7 @@
 import 'package:app_weather/config/icons/icons_weather.dart';
 import 'package:app_weather/config/theme/linear_gradient_background.dart';
+import 'package:app_weather/config/theme/scaffold_background.dart';
+import 'package:app_weather/core/utils/colors.dart';
 import 'package:app_weather/core/utils/convert_date.dart';
 import 'package:app_weather/weather/presentation/BLoC/remote_weather_bloc.dart';
 import 'package:app_weather/weather/presentation/BLoC/remote_weather_event.dart';
@@ -28,6 +30,7 @@ class _WeatherByCityState extends State<WeatherByCity> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: backgroundColor(),
       body: BlocBuilder<RemoteWeatherBloc, RemoteWeatherState>(
         builder: (context, state) {
           switch (state) {
@@ -45,6 +48,7 @@ class _WeatherByCityState extends State<WeatherByCity> {
                           Flexible(
                             child: TextField(
                               controller: controllerCity,
+                              style: const TextStyle(color: Colors.black),
                               decoration: const InputDecoration(
                                 hintText: "Ciudad",
                                 border: OutlineInputBorder(
@@ -52,11 +56,13 @@ class _WeatherByCityState extends State<WeatherByCity> {
                                     width: 1
                                   )
                                 ),
+                                filled: true,
+                                fillColor: Colors.white
                               ),
                             ),
                           ),
                           TextButton(
-                            onPressed: () => BlocProvider.of<RemoteWeatherBloc>(context).add(OnGetWeatherForecastByCity(city: controllerCity.text)),
+                            onPressed: () => BlocProvider.of<RemoteWeatherBloc>(context).add(OnGetWeatherByCity(city: controllerCity.text)),
                             style: TextButton.styleFrom(
                               backgroundColor: const Color(0xFF42dde6),
                               shape: BeveledRectangleBorder(
@@ -85,6 +91,7 @@ class _WeatherByCityState extends State<WeatherByCity> {
                         children: [
                           Flexible(
                             child: TextField(
+                              style: const TextStyle(color: Colors.black),
                               controller: controllerCity,
                               decoration: const InputDecoration(
                                 hintText: "Ciudad",
@@ -93,11 +100,13 @@ class _WeatherByCityState extends State<WeatherByCity> {
                                     width: 1
                                   )
                                 ),
+                                filled: true,
+                                fillColor: Colors.white
                               ),
                             ),
                           ),
                           TextButton(
-                            onPressed: () => BlocProvider.of<RemoteWeatherBloc>(context).add(OnGetWeatherForecastByCity(city: controllerCity.text)),
+                            onPressed: () => BlocProvider.of<RemoteWeatherBloc>(context).add(OnGetWeatherByCity(city: controllerCity.text)),
                             style: TextButton.styleFrom(
                               backgroundColor: const Color(0xFF42dde6),
                               shape: BeveledRectangleBorder(
@@ -117,7 +126,8 @@ class _WeatherByCityState extends State<WeatherByCity> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Text("Pronóstico de clima", style: TextStyle(fontSize: 20)),
+                            // CurrentWeather(weather: state.weather, orientation: "landscape"),
+                            Text("Pronóstico de clima", style: TextStyle(fontSize: 20, color: getColorByDayOrNight())),
                             Expanded(
                               child: ListView.builder(
                                 scrollDirection: Axis.horizontal,
@@ -138,10 +148,10 @@ class _WeatherByCityState extends State<WeatherByCity> {
                                         child: Column(
                                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                           children: [
-                                            Text(getDate(state.weatherForecast.forecast[index]['dt_txt']), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
-                                            Text(getHour(state.weatherForecast.forecast[index]['dt_txt']), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+                                            Text(getDate(state.weatherForecast.forecast[index]['dt_txt']), style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: getColorByDayOrNight())),
+                                            Text(getHour(state.weatherForecast.forecast[index]['dt_txt']), style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: getColorByDayOrNight())),
                                             showIconsWeather(state.weatherForecast.forecast[index]['weather'][0]['icon'], 55),
-                                            Text("${(state.weatherForecast.forecast[index]['main']['temp']  - 273.15).toString().split(".").first}°C", style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),)
+                                            Text("${(state.weatherForecast.forecast[index]['main']['temp']  - 273.15).toString().split(".").first}°C", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: getColorByDayOrNight()))
                                           ],
                                         ),
                                       )

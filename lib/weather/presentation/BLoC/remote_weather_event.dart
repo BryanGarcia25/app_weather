@@ -10,10 +10,10 @@ class OnGetWeatherForecast extends RemoteWeatherEvent {
   
 }
 
-class OnGetWeatherForecastByCity extends RemoteWeatherEvent {
+class OnGetWeatherByCity extends RemoteWeatherEvent {
   final String city;
 
-  OnGetWeatherForecastByCity({required this.city});
+  OnGetWeatherByCity({required this.city});
 }
 
 class ResetWeatherState extends RemoteWeatherEvent {}
