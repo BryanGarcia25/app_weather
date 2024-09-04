@@ -58,7 +58,7 @@ class _WeatherScreen extends State<WeatherScreen> {
           return const Center(child: Text("Otro evento"));
         }
       },
-      buildWhen: (previous, current) => current is GetWeatherLoading || current is GetWeatherSuccess || current is GetWeatherFailed,
+      buildWhen: (previous, current) => current is GetWeatherSuccess || current is GetWeatherFailed,
     );
   }
 }
