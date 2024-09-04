@@ -40,11 +40,18 @@ class RemoteWeatherBloc extends Bloc<RemoteWeatherEvent, RemoteWeatherState> {
     });
     on<OnGetWeatherByCity>((event, emit) async {
       emit(GetWeatherLoading());
-      final respApiForecast = await _getWeatherByCityNameUseCase(event.city);
-      respApiForecast.fold((f) => GetWeatherFailed(failure: f), (w) => emit(GetWeatherSuccess(weather: w)));
-
-      final responseWeatherForecast = await _getWeatherForecastByCityNameUseCase(event.city);
-      responseWeatherForecast.fold((f) => GetWeatherFailed(failure: f), (w) => emit(GetWeatherForecastSuccess(weatherForecast: w)));
+      final weatherResponse = await _getWeatherByCityNameUseCase(event.city);
+      final forecastResponse = await _getWeatherForecastByCityNameUseCase(event.city);
+      
+      weatherResponse.fold(
+        (f) => GetWeatherFailed(failure: f), 
+        (w) {
+          forecastResponse.fold(
+            (f) => GetWeatherFailed(failure: f),
+            (wf) => emit(GetWeatherAndForecastByCityName(weather: w, weatherForecast: wf))
+          );
+        }
+      );
 
     });
   }

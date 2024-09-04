@@ -114,6 +114,8 @@ class _WeatherForecastScreenState extends State<WeatherForecastScreen> {
               return const Center(child: Text("Hola Mundo", style: TextStyle(color: Colors.white)));
             case GetWeatherFailed():
               return const Center(child: Text("Fallo", style: TextStyle(color: Colors.white)));
+            case GetWeatherAndForecastByCityName():
+              return Container();
           }
         },
       ),

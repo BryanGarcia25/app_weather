@@ -133,6 +133,8 @@ class _WeatherScreen extends State<WeatherScreen> {
               return Container();
             case GetWeatherFailed():
               return const Text("Error al momento de consumir la API");
+            case GetWeatherAndForecastByCityName():
+              return Container();
           }
         },
       ),

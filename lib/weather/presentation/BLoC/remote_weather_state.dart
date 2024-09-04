@@ -18,6 +18,12 @@ final class GetWeatherForecastSuccess extends RemoteWeatherState {
   GetWeatherForecastSuccess({required this.weatherForecast});
 }
 
+final class GetWeatherAndForecastByCityName extends RemoteWeatherState {
+  final Weather weather;
+  final WeatherForecast weatherForecast;
+  GetWeatherAndForecastByCityName({required this.weather, required this.weatherForecast});
+}
+
 final class GetWeatherFailed extends RemoteWeatherState {
   final Failure failure;
   GetWeatherFailed({required this.failure});
