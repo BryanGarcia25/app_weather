@@ -1,6 +1,6 @@
 import 'package:app_weather/injection_dependencies.dart';
 import 'package:app_weather/weather/presentation/BLoC/remote_weather_bloc.dart';
-import 'package:app_weather/weather/presentation/pages/weather_screen.dart';
+import 'package:app_weather/weather/presentation/pages/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: const WeatherScreen(),
+        home: const MainScreen(),
       ),
     );
   }
