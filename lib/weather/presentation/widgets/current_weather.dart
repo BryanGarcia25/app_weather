@@ -1,5 +1,5 @@
 import 'package:app_weather/config/icons/icons_weather.dart';
-import 'package:app_weather/config/theme/linear_gradient_background.dart';
+import 'package:app_weather/config/theme/linear_gradient_card.dart';
 import 'package:app_weather/core/utils/colors.dart';
 import 'package:app_weather/core/utils/convert_date.dart';
 import 'package:app_weather/weather/domain/entity/weather.dart';
@@ -24,7 +24,7 @@ class CurrentWeather extends StatelessWidget {
           color: Colors.transparent
         ),
         borderRadius: orientation != "landscape" ? const BorderRadius.only(bottomLeft: Radius.circular(50), bottomRight: Radius.circular(50)) : null,
-        gradient: linearGradientBackground(),
+        gradient: linearGradientCard(weather.icon),
       ),
       child: orientation == "landscape" ? Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -74,13 +74,13 @@ class CurrentWeather extends StatelessWidget {
       ) : Column(
         children: [
           const SizedBox(height: 30),
-          Text("${date.day}/${date.month}/${date.year}", style: TextStyle(fontSize: 16, color: getColorByDayOrNight())),
-          Text(weather.cityName, style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: getColorByDayOrNight())),
+          Text(getDate(date.toString()), style: TextStyle(fontSize: 16, color: getColorByDayPeriod(weather.icon))),
+          Text(weather.cityName, style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: getColorByDayPeriod(weather.icon))),
           const SizedBox(height: 10),
           showIconsWeather(weather.icon, 175),
           const SizedBox(height: 10),
-          Text("${weather.temp}°C", style: TextStyle(fontSize: 56, fontWeight: FontWeight.bold, color: getColorByDayOrNight())),
-          Text(weather.description.toUpperCase(), style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: getColorByDayOrNight())),
+          Text("${weather.temp}°C", style: TextStyle(fontSize: 56, fontWeight: FontWeight.bold, color: getColorByDayPeriod(weather.icon))),
+          Text(weather.description.toUpperCase(), style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: getColorByDayPeriod(weather.icon))),
           const SizedBox(height: 10),
           Container(
             width: MediaQuery.of(context).size.width * 0.75,
@@ -89,7 +89,7 @@ class CurrentWeather extends StatelessWidget {
                 color: Colors.transparent
               ),
               borderRadius: BorderRadius.circular(15),
-              color: date.hour < 6 || date.hour > 20 ? const Color.fromARGB(255, 33, 61, 143) : const Color(0xFF99cef7)
+              color: weather.icon.contains('n') ? const Color.fromARGB(255, 33, 61, 143) : const Color(0xFF99cef7)
             ),
             child: Padding(
               padding: const EdgeInsets.all(16.0),

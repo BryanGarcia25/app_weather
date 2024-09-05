@@ -1,5 +1,5 @@
 import 'package:app_weather/config/icons/icons_weather.dart';
-import 'package:app_weather/config/theme/linear_gradient_background.dart';
+import 'package:app_weather/config/theme/linear_gradient_card.dart';
 import 'package:app_weather/core/utils/colors.dart';
 import 'package:app_weather/core/utils/convert_date.dart';
 import 'package:app_weather/weather/presentation/BLoC/remote_weather_bloc.dart';
@@ -77,19 +77,19 @@ class _WeatherByCityState extends State<WeatherByCity> {
             ),
           );
         } else if (state is GetWeatherAndForecastByCityName) {
-          return SingleChildScrollView(
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: IntrinsicHeight(
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 35, horizontal: 15),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  IntrinsicHeight(
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Flexible(
                           child: TextField(
-                            style: const TextStyle(color: Colors.black),
                             controller: controllerCity,
+                            style: const TextStyle(color: Colors.black),
                             decoration: const InputDecoration(
                               hintText: "Ciudad",
                               border: OutlineInputBorder(
@@ -116,52 +116,44 @@ class _WeatherByCityState extends State<WeatherByCity> {
                       ],
                     ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      CurrentWeather(weather: state.weather, orientation: "a"),
-                      const SizedBox(height: 20),
-                      Text("Pronóstico de clima", style: TextStyle(fontSize: 20, color: getColorByDayOrNight())),
-                      SizedBox(
-                        height: 175,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: state.weatherForecast.forecast.length,
-                          itemBuilder: (context, index) {
-                            return Padding(
+                  CurrentWeather(weather: state.weather, orientation: "a"),
+                  const SizedBox(height: 20),
+                  Text("Pronóstico de clima", style: TextStyle(fontSize: 20, color: getColorByDayOrNight())),
+                  SizedBox(
+                    height: 175,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: state.weatherForecast.forecast.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            height: 200,
+                            width: 150,
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.transparent),
+                              borderRadius: BorderRadius.circular(10),
+                              gradient: linearGradientCard(state.weatherForecast.forecast[index]['weather'][0]['icon'].toString())
+                            ),
+                            child: Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                height: 200,
-                                width: 150,
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.transparent),
-                                  borderRadius: BorderRadius.circular(10),
-                                  gradient: linearGradientBackground()
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      Text(getDate(state.weatherForecast.forecast[index]['dt_txt']), style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: getColorByDayOrNight())),
-                                      Text(getHour(state.weatherForecast.forecast[index]['dt_txt']), style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: getColorByDayOrNight())),
-                                      showIconsWeather(state.weatherForecast.forecast[index]['weather'][0]['icon'], 55),
-                                      Text("${(state.weatherForecast.forecast[index]['main']['temp']  - 273.15).toString().split(".").first}°C", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: getColorByDayOrNight()))
-                                    ],
-                                  ),
-                                )
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Text(getDate(state.weatherForecast.forecast[index]['dt_txt']), style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: getColorByDayPeriod(state.weatherForecast.forecast[index]['weather'][0]['icon'].toString()))),
+                                  Text(getHour(state.weatherForecast.forecast[index]['dt_txt']), style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: getColorByDayPeriod(state.weatherForecast.forecast[index]['weather'][0]['icon'].toString()))),
+                                  showIconsWeather(state.weatherForecast.forecast[index]['weather'][0]['icon'], 55),
+                                  Text("${(state.weatherForecast.forecast[index]['main']['temp']  - 273.15).toString().split(".").first}°C", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: getColorByDayPeriod(state.weatherForecast.forecast[index]['weather'][0]['icon'].toString())))
+                                ],
                               ),
-                            );
-                          },
-                        ),
-                      ),
-                    ],
+                            )
+                          ),
+                        );
+                      },
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           );
         } else if (state is GetWeatherFailed) {

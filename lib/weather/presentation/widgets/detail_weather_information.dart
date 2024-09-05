@@ -1,3 +1,4 @@
+import 'package:app_weather/core/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 class DetailWeatherInformation extends StatelessWidget {
@@ -13,9 +14,9 @@ class DetailWeatherInformation extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Icon(icon, color: period!.contains('n') ? Colors.white : Colors.black),
-        Text(weatherInformation, style: TextStyle(fontWeight: FontWeight.bold, color: period!.contains('n') ? Colors.white : Colors.black)),
-        Text(feacture, style: TextStyle(color: period!.contains('n') ? Colors.white : Colors.black)),
+        Icon(icon, color: getColorByDayPeriod(period!)),
+        Text(weatherInformation, style: TextStyle(fontWeight: FontWeight.bold, color: getColorByDayPeriod(period!))),
+        Text(feacture, style: TextStyle(color: getColorByDayPeriod(period!))),
       ],
     );
   }
