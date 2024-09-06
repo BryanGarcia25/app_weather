@@ -30,8 +30,8 @@ class CurrentWeather extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const SizedBox(height: 20),
-          Text(getDate(date.toString()), style: TextStyle(fontSize: 20, color: getColorByDayOrNight())),
-          Text(weather.cityName, style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: getColorByDayOrNight())),
+          Text(getDate(date.toString()), style: TextStyle(fontSize: 20, color: getColorByDayPeriod(weather.icon))),
+          Text(weather.cityName, style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: getColorByDayPeriod(weather.icon))),
           // const SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -41,8 +41,8 @@ class CurrentWeather extends StatelessWidget {
                 showIconsWeather(weather.icon, 100),
                 Column(
                   children: [
-                    Text("${weather.temp}°C", style: TextStyle(fontSize: 48, fontWeight: FontWeight.bold, color: getColorByDayOrNight())),
-                    Text(weather.description.toUpperCase(), style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: getColorByDayOrNight())),
+                    Text("${weather.temp}°C", style: TextStyle(fontSize: 48, fontWeight: FontWeight.bold, color: getColorByDayPeriod(weather.icon))),
+                    Text(weather.description.toUpperCase(), style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: getColorByDayPeriod(weather.icon))),
                   ],
                 ),
               ],
@@ -56,7 +56,7 @@ class CurrentWeather extends StatelessWidget {
                 color: Colors.transparent
               ),
               borderRadius: BorderRadius.circular(15),
-              color: date.hour < 6 || date.hour > 20 ? const Color.fromARGB(255, 33, 61, 143) : const Color(0xFF99cef7)
+              color: weather.icon.contains('n') ? const Color.fromARGB(255, 33, 61, 143) : const Color(0xFF99cef7)
             ),
             child: Padding(
               padding: const EdgeInsets.all(12.0),
@@ -75,7 +75,7 @@ class CurrentWeather extends StatelessWidget {
         children: [
           const SizedBox(height: 30),
           Text(getDate(date.toString()), style: TextStyle(fontSize: 16, color: getColorByDayPeriod(weather.icon))),
-          Text(weather.cityName, style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: getColorByDayPeriod(weather.icon))),
+          Text(weather.cityName, style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: getColorByDayPeriod(weather.icon))),
           const SizedBox(height: 10),
           showIconsWeather(weather.icon, 175),
           const SizedBox(height: 10),
