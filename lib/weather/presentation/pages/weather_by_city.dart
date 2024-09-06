@@ -63,7 +63,7 @@ class _WeatherByCityState extends State<WeatherByCity> {
                         ),
                       ),
                       TextButton(
-                        onPressed: () => BlocProvider.of<RemoteWeatherBloc>(context).add(OnGetWeatherByCity(city: controllerCity.text)),
+                        onPressed: () => BlocProvider.of<RemoteWeatherBloc>(context).add(OnGetWeatherByCity(city: controllerCity.text.trim())),
                         style: TextButton.styleFrom(
                           backgroundColor: const Color(0xFF42dde6),
                           shape: BeveledRectangleBorder(
@@ -108,7 +108,7 @@ class _WeatherByCityState extends State<WeatherByCity> {
                             ),
                           ),
                           TextButton(
-                            onPressed: () => BlocProvider.of<RemoteWeatherBloc>(context).add(OnGetWeatherByCity(city: controllerCity.text)),
+                            onPressed: () => BlocProvider.of<RemoteWeatherBloc>(context).add(OnGetWeatherByCity(city: controllerCity.text.trim())),
                             style: TextButton.styleFrom(
                               backgroundColor: const Color(0xFF42dde6),
                               shape: BeveledRectangleBorder(
