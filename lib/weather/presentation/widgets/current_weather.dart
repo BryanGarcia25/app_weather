@@ -29,28 +29,28 @@ class CurrentWeather extends StatelessWidget {
       child: orientation == "landscape" ? Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const SizedBox(height: 15),
+          const SizedBox(height: 20),
           Text(getDate(date.toString()), style: TextStyle(fontSize: 20, color: getColorByDayOrNight())),
-          Text(weather.cityName, style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: getColorByDayOrNight())),
-          const SizedBox(height: 10),
+          Text(weather.cityName, style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: getColorByDayOrNight())),
+          // const SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                showIconsWeather(weather.icon, 120),
+                showIconsWeather(weather.icon, 100),
                 Column(
                   children: [
                     Text("${weather.temp}°C", style: TextStyle(fontSize: 48, fontWeight: FontWeight.bold, color: getColorByDayOrNight())),
-                    Text(weather.description.toUpperCase(), style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: getColorByDayOrNight())),
+                    Text(weather.description.toUpperCase(), style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: getColorByDayOrNight())),
                   ],
                 ),
               ],
             ),
           ),
-          const SizedBox(height: 20),          
+          const SizedBox(height: 10),          
           Container(
-            width: MediaQuery.of(context).size.width * 0.4,
+            width: MediaQuery.of(context).size.width * 0.35,
             decoration: BoxDecoration(
               border: Border.all(
                 color: Colors.transparent
@@ -61,7 +61,7 @@ class CurrentWeather extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(12.0),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   DetailWeatherInformation(period: weather.icon, icon: Icons.device_thermostat_sharp, feacture: "Sensación", weatherInformation: "${weather.feelsLike}°C"),
                   DetailWeatherInformation(period: weather.icon, icon: Icons.water_drop, feacture: "Humedad", weatherInformation: "${weather.humidity}%"),
